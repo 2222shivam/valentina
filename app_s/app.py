@@ -3,6 +3,8 @@ import time
 import base64
 import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
     page_title="For Someone Special ❤️",
@@ -20,6 +22,11 @@ st.markdown("""
 footer {visibility:hidden;}
 header {visibility:hidden;}
 
+/* GLOBAL TEXT FIX (prevents white text issue) */
+body, p, span, label, div {
+color:#2b2b2b !important;
+}
+
 /* iPhone safe area */
 .stApp {
 padding-top: env(safe-area-inset-top);
@@ -29,14 +36,14 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 
 /* Center content width for phones */
 .block-container {
-max-width: 420px;
-padding-top: 1rem;
-padding-bottom: 2rem;
+max-width:420px;
+padding-top:1rem;
+padding-bottom:2rem;
 }
 
 /* Romantic card */
 .love-box{
-background:rgba(255,255,255,0.85);
+background:rgba(255,255,255,0.88);
 padding:20px;
 border-radius:20px;
 text-align:center;
@@ -46,22 +53,22 @@ font-size:17px;
 line-height:1.6;
 }
 
-/* Animation */
+/* Smooth animation */
 @keyframes fadeIn{
 from{opacity:0;transform:translateY(12px);}
 to{opacity:1;transform:translateY(0);}
 }
 
-/* Title mobile optimized */
+/* Title optimized for iPhone */
 .title{
 text-align:center;
 font-size:26px;
 font-weight:700;
 margin-top:8px;
-margin-bottom:10px;
+margin-bottom:12px;
 }
 
-/* iPhone touch buttons */
+/* Touch-friendly buttons */
 .stButton button{
 height:56px;
 border-radius:14px;
@@ -77,9 +84,10 @@ box-shadow:0 6px 18px rgba(255,75,110,0.35);
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------- FLOATING HEARTS ----------------
-if os.path.exists("assets/hearts.html"):
-    with open("assets/hearts.html", encoding="utf-8") as f:
+# ---------------- FLOATING HEARTS (CLOUD SAFE) ----------------
+hearts_path = os.path.join(BASE_DIR, "assets", "hearts.html")
+if os.path.exists(hearts_path):
+    with open(hearts_path, encoding="utf-8") as f:
         st.components.v1.html(f.read(), height=0)
 
 # ---------------- SESSION STATE ----------------
@@ -192,7 +200,7 @@ elif st.session_state.page == 4:
 
     percent = 0
     for step in steps:
-        for i in range(20):
+        for _ in range(20):
             percent += 1
             progress.progress(percent)
             time.sleep(0.04)
@@ -212,7 +220,9 @@ elif st.session_state.page == 5:
 
     st.markdown("<div class='title'>💖 Happy Valentine's Day 💖</div>", unsafe_allow_html=True)
 
-    with open("assets/her_photo.jpg","rb") as img:
+    image_path = os.path.join(BASE_DIR, "assets", "her_photo.jpg")
+
+    with open(image_path, "rb") as img:
         img_base64 = base64.b64encode(img.read()).decode()
 
     st.markdown(f"""
@@ -240,7 +250,7 @@ But every answer led to you 💕
 """
 
     box = st.empty()
-    text=""
+    text = ""
 
     for char in message:
         text += char
