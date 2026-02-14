@@ -242,9 +242,8 @@ elif st.session_state.page == 5:
 
 But every answer led to you 💕  
 
-✨ You make ordinary days special  
-🌸 You bring calm into chaos  
-💫 And unknowingly became my favorite person  
+Tu Bhagirathi Si Chanchal Priye, Main Alaknanda sa shant priye, 
+Jab hum dono sang mile yahan, Prem hi Ganga ka arth priye💕
 
 ❤️ Happy Valentine's Day ❤️
 """
@@ -256,3 +255,4 @@ But every answer led to you 💕
         text += char
         box.markdown(f"<div class='love-box'>{text}</div>", unsafe_allow_html=True)
         time.sleep(0.03)
+
